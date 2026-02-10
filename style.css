@@ -56,7 +56,7 @@ nav .cta {
 .hero {
   text-align: center;
   padding: 150px 20px 170px;
-  background: url("castle_illustration.webp") center/cover no-repeat;
+  background: url("castle_illustration.webp") /*center/*/cover no-repeat;
   /*background-blend-mode: lighten;*/
   max-width: minmax(max-content,1vw);
   justify-self: left;
@@ -126,7 +126,7 @@ nav .cta {
   text-decoration: none;
     border-image: url('button_green.webp') 80 350 80 350 fill / 80px 350px 80px 350px;
       /*padding: 8px;*/
-        image-rendering:crisp-edges;
+        image-rendering:pixelated;
 
 }
 
