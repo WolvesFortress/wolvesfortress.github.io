@@ -15,6 +15,8 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  flex-flow: row;
 }
 
 header .logo {
@@ -57,10 +59,10 @@ nav .cta {
 .hero {
   text-align: center;
   padding: 150px 20px 170px;
-  background: url("castle_illustration.webp") /*center/*/cover no-repeat;
+  background: url("castle_illustration.webp") center/cover no-repeat;
   /*background-blend-mode: lighten;*/
   min-width: fit-content;
-  max-width: minmax(max-content,1vw);
+  /*max-width: minmax(max-content,1vw);*/
   justify-self: left;
   display: inline-block;
 }
@@ -111,7 +113,7 @@ nav .cta {
   background: url('bg_elements.jpg') no-repeat center/contain;
 }
 
-.updates {
+.features .updates {
   text-align: initial !important;
   border: 1px solid rgba(140, 110, 255, 0.35);
   padding: 20px;
