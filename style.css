@@ -53,11 +53,12 @@ nav .cta {
   text-align: center;
   padding: 150px 20px 170px;
   background: url("castle_illustration.webp") center/cover no-repeat;
-  background-blend-mode: lighten;
+  /*background-blend-mode: lighten;*/
   width: min-content;
   width: 100%;
   max-width: 1vw;
   justify-self: left;
+  display: inline-block;
 }
 
 .hero h1 {
@@ -68,7 +69,7 @@ nav .cta {
 
 .btn {
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 12px 28px;
   background: linear-gradient(#aa3a20, #7a1f10);
   color: #fff;
@@ -89,6 +90,10 @@ nav .cta {
 .features h2 {
   color: #f0eaff;
   margin-bottom: 8px;
+}
+
+.features > div > * {
+  text-align: center;
 }
 
 .updates {
