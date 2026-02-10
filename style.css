@@ -19,12 +19,15 @@ header {
   align-items: center;
   flex-wrap: wrap;
   flex-flow: row;
+  flex-basis: content;
+  flex-grow: 0.95rem;
+  flex-shrink: 1;
 }
 
 header .logo {
   background: url('title_logo.webp') no-repeat contain fixed;
   color: transparent;
-  flex: 1 0 0.5rem;
+  flex-basis: 0.3;
 }
 
 nav a {
