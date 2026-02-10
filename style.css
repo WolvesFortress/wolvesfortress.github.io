@@ -43,18 +43,20 @@ nav a.active::after {
 }
 
 nav .cta {
-  background: #5c5aff;
-  padding: 6px 14px;
+  /*background: #5c5aff;*/
+  padding: 6px 12px;
+  /*padding: 6px 14px;*/
   border-radius: 6px;
-  /*todo background*/
-
+  border-image: url('button_green.webp') 40 175 40 175 fill / 40px 175px 40px 175px;
+/*padding: 80px 350px 80px 350px;*/
+image-rendering: pixelated;
 }
 
 /* === HERO === */
 .hero {
   text-align: center;
   padding: 150px 20px 170px;
-  background: url("castle_illustration.webp") center/cover no-repeat;
+  background: url("castle_illustration.webp") center/cover no-repeat fixed;
   background-blend-mode: lighten;
 }
 
