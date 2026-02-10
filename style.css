@@ -20,7 +20,7 @@ header {
 }
 
 header .logo {
-  background: url('title_logo.webp') no-repeat center/cover;
+  background: url('title_logo.webp') no-repeat center/contain;
   color: transparent;
 }
 
@@ -59,11 +59,12 @@ nav .cta {
 .hero {
   text-align: center;
   padding: 150px 20px 170px;
-  background: url("castle_illustration.webp") center/cover no-repeat;
+  background: url("castle_illustration.webp") center/contain no-repeat;
   background-blend-mode: darken;
   /*min-width: fit-content;*/
   /*max-width: minmax(max-content,1vw);*/
-  justify-self: left;
+  justify-content: left;
+  width: 1vw;
   display: inline-block;
   background-clip: border-box;
 }
@@ -107,11 +108,11 @@ nav .cta {
 }
 
 .features #explore {
-  background: url('bg_exploration.jpg') cover/contain no-repeat;
+  background: url('bg_exploration.jpg') center/contain no-repeat;
 }
 
 .features #elements {
-  background: url('bg_elements.jpg') no-repeat cover/contain;
+  background: url('bg_elements.jpg') no-repeat center/contain;
 }
 
 .features .updates {
@@ -119,7 +120,7 @@ nav .cta {
   border: 1px solid rgba(140, 110, 255, 0.35);
   padding: minmax(20px, 0.1vw);
   border-radius: 10px;
-  background: url('bg_updates.jpg') no-repeat cover/contain;
+  background: url('bg_updates.jpg') no-repeat center/contain;
 }
 
 .small-btn {
