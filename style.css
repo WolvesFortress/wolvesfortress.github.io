@@ -54,6 +54,10 @@ nav .cta {
   padding: 150px 20px 170px;
   background: url("castle_illustration.webp") center/cover no-repeat;
   background-blend-mode: lighten;
+  width: min-content;
+  width: 100%;
+  max-width: 1vw;
+  justify-self: left;
 }
 
 .hero h1 {
