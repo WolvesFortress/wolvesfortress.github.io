@@ -147,15 +147,16 @@ image-rendering:pixelated;
 }
 
 .features #explore {
-  background: url('bg_exploration.jpg') no-repeat center/contain;
+  background: url('bg_exploration.jpg') no-repeat center/cover;
 }
 
 .features #elements {
-  background: url('bg_elements.jpg') no-repeat center/contain;
+  background: url('bg_elements.jpg') no-repeat center/cover;
 }
 
 .features #updates{
-  background: url('bg_updates.jpg') no-repeat center/contain;
+  /*background: url('bg_updates.jpg') no-repeat center/contain;*/
+  border-image: url('bg_updates.jpg') 20 20 20 20 fill / 20px 20px 20px 20px;
 }
 
 .features #updates p {
