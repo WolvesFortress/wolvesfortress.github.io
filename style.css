@@ -83,6 +83,7 @@ image-rendering: -moz-crisp-edges;
   flex-direction: row;
   gap: 20px;
   justify-content: space-evenly;
+  padding-left: 20px;
   /*height: 0.5vh;
   height: 0.5dvh;*/
   /*width: fit-content;*/
