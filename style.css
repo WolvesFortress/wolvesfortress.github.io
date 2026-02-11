@@ -29,17 +29,16 @@ header .logo{
   flex-grow: 0;
 }
 nav {
-  display: inline-flex;
+  display: flex;
   gap: 26px;
   row-gap: 5px;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  flex-direction: column;
+  justify-content: space-evenly;
+  flex-wrap: nowrap;/*wrap for hamburger*/
+  flex-direction: row;/*column for hamburger*/
   align-items: center;
   border: solid blue 2px;
 }
 nav a {
-  /* todo replace with flex and gap */
   text-decoration: none;
   color: #ddd;
   font-size: 0.95rem;
