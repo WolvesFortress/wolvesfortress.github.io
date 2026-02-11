@@ -15,18 +15,24 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: nowrap;
+  flex-direction: row;
 }
 
 header .logo{
-  display: inline-block;
-}
-
-header .logo img{
-  width: clamp(8rem, 1.5rem + 5vw, 10rem);
+  /*display: inline-flex;*/
+  width: clamp(8rem, 1.5rem + 5vw, 12rem);
   height: auto;
 }
-nav a {
+nav {
+  display: inline-flex;
   margin-left: 26px;
+  gap: 26px;
+  justify-content: space-between;
+  align-items: center;
+}
+nav a {
+  /* todo replace with flex and gap */
   text-decoration: none;
   color: #ddd;
   font-size: 0.95rem;
@@ -58,12 +64,18 @@ nav .cta {
   border-image: url('button_green.webp') 40 175 40 175 fill / 40px 175px 40px 175px;
 /*padding: 80px 350px 80px 350px;*/
 image-rendering: pixelated;
+image-rendering: -moz-crisp-edges;
 }
 
 /* === HERO === */
 .hero {
+  display: inline-flex;
   text-align: center;
-  padding: 150px 20px 170px;
+  /*padding: 150px 20px 170px;*/
+  flex-direction: column;
+  height: 0.15vh;
+  height: 0.15dvh;
+  width: fit-content;
   background: url("castle_illustration.webp") center/cover no-repeat fixed;
   background-blend-mode: lighten;
 }
@@ -93,7 +105,7 @@ image-rendering:pixelated;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 30px;
-  padding: 70px 40px;
+  /*padding: 70px 40px;*/
   background: rgba(18, 15, 50, 0.6);
   backdrop-filter: blur(4px);
 }
