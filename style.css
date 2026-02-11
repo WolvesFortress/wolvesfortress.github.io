@@ -11,7 +11,7 @@ header {
   background: rgba(15, 10, 40, 0.55);
   border-bottom: 1px solid rgba(120, 90, 255, 0.25);
   backdrop-filter: blur(6px);
-  padding: 15px 0px;
+  /*padding: 15px 0px;*/
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -44,6 +44,8 @@ nav a {
   font-size: 0.95rem;
   padding-bottom: 4px;
   position: relative;
+  word-break: keep-all;/*???*/
+  word-wrap: nowrap;/*???*/
 }
 
 /* Gold underline for active tab */
@@ -79,11 +81,12 @@ image-rendering: -moz-crisp-edges;
   text-align: center;
   /*padding: 150px 20px 170px;*/
   flex-direction: column;
-  height: 0.15vh;
-  height: 0.15dvh;
-  width: fit-content;
+  /*height: 0.5vh;
+  height: 0.5dvh;*/
+  /*width: fit-content;*/
   background: url("castle_illustration.webp") center/cover no-repeat fixed;
   background-blend-mode: lighten;
+  border: solid green 2px;
 }
 
 .hero h1 {
