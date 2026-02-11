@@ -11,10 +11,11 @@ header {
   background: rgba(15, 10, 40, 0.55);
   border-bottom: 1px solid rgba(120, 90, 255, 0.25);
   backdrop-filter: blur(6px);
-  padding: 15px 40px;
+  padding: 15px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  align-content: center;
   flex-wrap: nowrap;
   flex-direction: row;
 }
