@@ -141,8 +141,6 @@ header {
 
   background: var(--bg-header);
   border-bottom: 1px solid var(--accent-purple);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
 .logo-link {
@@ -199,6 +197,14 @@ header {
 }
 
 
+/* Right column wrapper */
+.nav-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
 /* ============================================================
    5. NAV: COLLAPSED / HAMBURGER (details + summary, zero JS)
    ============================================================ */
@@ -217,23 +223,20 @@ header {
   font-size: 0.95rem;
   color: var(--text-gold);
   font-weight: 600;
-  padding: 6px 10px;
+  padding: 6px 10px 9px;
   border: 1px solid var(--border-card);
   border-radius: 6px;
   user-select: none;
   position: relative;
-  padding-bottom: 9px; /* room for the underline */
 }
 
 .nav-collapsed summary::-webkit-details-marker { display: none; }
 
-/* Underline on the active page name in summary */
 .nav-collapsed summary::after {
   content: "";
   position: absolute;
   bottom: 4px;
   left: 10px;
-  /* only underline the text, not the arrow — approximate with 60% */
   width: calc(100% - 28px);
   height: 2px;
   background: linear-gradient(90deg, var(--text-gold), #d8a93c);
@@ -242,8 +245,8 @@ header {
 
 .nav-arrow {
   font-size: 0.6rem;
-  transition: transform 0.2s;
   margin-left: 2px;
+  transition: transform 0.2s;
 }
 
 .nav-collapsed[open] .nav-arrow {
@@ -251,20 +254,23 @@ header {
 }
 
 .nav-dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  min-width: 200px;
+  position: fixed;
+  top: var(--header-height);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100vw - 2 * var(--section-pad-x));
+  max-width: 360px;
+  max-height: calc(100dvh - var(--header-height) - 16px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  padding: 10px 14px;
-  gap: 0;
-  background: var(--bg-header);
+  padding: 8px 14px;
+  background: rgba(10, 8, 32, 0.82);
   border: 1px solid var(--border-card);
   border-radius: 10px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.8);
 }
 
 .nav-dropdown a {
@@ -275,13 +281,11 @@ header {
   border-bottom: 1px solid rgba(140, 110, 255, 0.12);
   position: relative;
   transition: color 0.15s;
+  text-align: center;
 }
 
 .nav-dropdown a:last-child {
   border-bottom: none;
-  margin-top: 8px;
-  padding: 6px 12px;
-  text-align: center;
 }
 
 .nav-dropdown a:hover {
@@ -304,10 +308,9 @@ header {
   border-radius: 2px;
 }
 
-/* Breakpoint: swap full ↔ collapsed nav */
+/* Breakpoint: show toggle, keep CTA */
 @media (max-width: 700px) {
   .nav-full      { display: none; }
-  .nav-cta       { display: none; }
   .nav-collapsed { display: block; }
 }
 
