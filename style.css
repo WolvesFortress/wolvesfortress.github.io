@@ -1,206 +1,499 @@
-/* === GLOBAL === */
-body {
+/* ============================================================
+   LUPRUNE — WolvesFortress  |  style.css
+   ============================================================
+   Table of contents:
+   1. CSS Custom Properties (tokens)
+   2. Reset / Global
+   3. Parallax background helper (fixes mobile fixed-bg bug)
+   4. Header & Navigation
+   5. Nav: collapsed/hamburger (details/summary)
+   6. Hero section
+   7. Features grid
+   8. Buttons
+   9. Decorative corners
+   10. Light-mode overrides (prefers-color-scheme)
+   ============================================================ */
+
+
+/* ============================================================
+   1. CSS CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  /* Colors — dark mode base */
+  --bg-page:          #0a0820;
+  --bg-header:        rgba(15, 10, 40, 0.72);
+  --bg-features:      rgba(18, 15, 50, 0.72);
+  --bg-card:          rgba(25, 18, 65, 0.55);
+
+  --text-primary:     #e6e2ff;
+  --text-muted:       #b8b0e0;
+  --text-gold:        #fff3c0;
+
+  --accent-purple:    rgba(120, 90, 255, 0.35);
+  --accent-glow:      #4a3cff;
+  --border-card:      rgba(140, 110, 255, 0.35);
+
+  /* Layout */
+  --header-height:    64px;
+  --nav-gap:          clamp(12px, 2vw, 26px);
+  --section-pad-x:    clamp(16px, 4vw, 48px);
+
+  /* Typography */
+  --font-display:     "Cinzel", serif;
+  --font-body:        "Crimson Pro", Georgia, serif;
+}
+
+/* Light-mode token overrides — actual rules stay identical */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-page:        #f5f0e8;
+    --bg-header:      rgba(245, 238, 220, 0.82);
+    --bg-features:    rgba(235, 225, 200, 0.82);
+    --bg-card:        rgba(255, 250, 235, 0.70);
+
+    --text-primary:   #2a1f0a;
+    --text-muted:     #5a4a2a;
+    --text-gold:      #6b4800;
+
+    --accent-purple:  rgba(140, 100, 40, 0.30);
+    --accent-glow:    #8b5e00;
+    --border-card:    rgba(160, 120, 60, 0.40);
+  }
+}
+
+
+/* ============================================================
+   2. RESET / GLOBAL
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
-  background: #0a0820 url("bg_night.webp") center/cover no-repeat fixed;
-  font-family: "Cinzel", serif;
-  color: #e6e2ff;
+  padding: 0;
 }
 
-/* === HEADER === */
-header {
-  background: rgba(15, 10, 40, 0.55);
-  border-bottom: 1px solid rgba(120, 90, 255, 0.25);
-  backdrop-filter: blur(6px);
-  /*padding: 15px 0px;*/
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  align-content: center;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  border: solid red 2px;
+body {
+  background-color: var(--bg-page);
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  line-height: 1.6;
+  /* No background-image here — handled per-section via ::before */
 }
 
-header .logo{
-  /*display: inline-flex;*/
-  padding-right: 0;
-  width: clamp(8rem, 1.5rem + 5vw, 12rem);
-  height: auto;
-  flex-grow: 0;
+img {
+  max-width: 100%;
+  display: block;
 }
-nav {
-  display: inline-flex;
-  row-gap: 5px;
-  column-gap: 26px;
-  justify-content: space-around;
-  flex-wrap: nowrap;/*wrap for hamburger*/
-  flex-direction: row;/*column for hamburger*/
-  align-items: center;
-  border: solid blue 2px;
-}
-nav a {
+
+a {
+  color: inherit;
   text-decoration: none;
-  color: #ddd;
-  font-size: 0.95rem;
-  padding-bottom: 4px;
-  position: relative;
-  word-break: keep-all;/*???*/
-  word-wrap: nowrap;/*???*/
 }
 
-/* Gold underline for active tab */
-nav a.active {
-  color: #fff3c0;
+
+/* ============================================================
+   3. FIXED BACKGROUND IMAGES
+   ============================================================
+   Using real <img> tags instead of background-attachment:fixed.
+   On mobile (iOS Safari / Chrome), background-attachment:fixed
+   clips when the element is inside flex/grid or has a transformed
+   ancestor. A fixed-position <img> with object-fit:cover sidesteps
+   all of that cleanly. Source: codegenes.net/blog/...
+   ============================================================ */
+.bg-img {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Page-wide night sky — sits furthest back */
+.bg-night  { z-index: -2; }
+
+/* Castle illustration — sits just above the night sky, below all content */
+.bg-castle {
+  z-index: -1;
+  object-position: center 25%;
+}
+
+
+/* ============================================================
+   4. HEADER & NAVIGATION
+   ============================================================
+   3-column grid: [logo] [nav centered] [cta button]
+   The logo and cta columns are auto-sized; the nav gets 1fr
+   so it fills the middle and centers its links freely.
+   ============================================================ */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-height);
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 0 var(--section-pad-x);
+
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--accent-purple);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.logo-link {
+  flex-shrink: 0;
+}
+
+.logo {
+  width: clamp(7rem, 2rem + 8vw, 11rem);
+  height: auto;
+}
+
+/* Full nav — centered in its 1fr column */
+.nav-full {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--nav-gap);
+  flex-wrap: nowrap;
+  /* Hide the CTA from inline flow — it lives in the 3rd grid column */
+}
+
+.nav-full .small-btn {
+  display: none;
+}
+
+.nav-full a {
+  font-family: var(--font-body);
+  font-size: clamp(0.8rem, 0.65rem + 0.6vw, 1rem);
+  color: var(--text-muted);
+  white-space: nowrap;
+  position: relative;
+  padding-bottom: 3px;
+  transition: color 0.2s;
+}
+
+.nav-full a:hover {
+  color: var(--text-primary);
+}
+
+.nav-full a.active {
+  color: var(--text-gold);
   font-weight: 600;
 }
-nav a.active::after {
+
+.nav-full a.active::after {
   content: "";
   position: absolute;
   bottom: -3px;
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, #fff3c0, #d8a93c);
+  background: linear-gradient(90deg, var(--text-gold), #d8a93c);
   border-radius: 2px;
 }
 
-nav .cta {
-  /*background: #5c5aff;*/
-  padding: 6px 12px;
-  /*padding: 6px 14px;*/
-  border-radius: 6px;
-  border-image: url('button_green.webp') 40 175 40 175 fill / 40px 175px 40px 175px;
-/*padding: 80px 350px 80px 350px;*/
-image-rendering: pixelated;
-image-rendering: -moz-crisp-edges;
+
+/* ============================================================
+   5. NAV: COLLAPSED / HAMBURGER (details + summary, zero JS)
+   ============================================================ */
+.nav-collapsed {
+  display: none;
+  position: relative;
 }
 
-/* === HERO === */
+.nav-collapsed summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-gold);
+  font-weight: 600;
+  padding: 6px 10px;
+  border: 1px solid var(--border-card);
+  border-radius: 6px;
+  user-select: none;
+  position: relative;
+  padding-bottom: 9px; /* room for the underline */
+}
+
+.nav-collapsed summary::-webkit-details-marker { display: none; }
+
+/* Underline on the active page name in summary */
+.nav-collapsed summary::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 10px;
+  /* only underline the text, not the arrow — approximate with 60% */
+  width: calc(100% - 28px);
+  height: 2px;
+  background: linear-gradient(90deg, var(--text-gold), #d8a93c);
+  border-radius: 2px;
+}
+
+.nav-arrow {
+  font-size: 0.6rem;
+  transition: transform 0.2s;
+  margin-left: 2px;
+}
+
+.nav-collapsed[open] .nav-arrow {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 14px;
+  gap: 0;
+  background: var(--bg-header);
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.nav-dropdown a {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  padding: 8px 4px;
+  border-bottom: 1px solid rgba(140, 110, 255, 0.12);
+  position: relative;
+  transition: color 0.15s;
+}
+
+.nav-dropdown a:last-child {
+  border-bottom: none;
+  margin-top: 8px;
+  padding: 6px 12px;
+  text-align: center;
+}
+
+.nav-dropdown a:hover {
+  color: var(--text-primary);
+}
+
+.nav-dropdown a.active {
+  color: var(--text-gold);
+  font-weight: 600;
+}
+
+.nav-dropdown a.active::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--text-gold), #d8a93c);
+  border-radius: 2px;
+}
+
+/* Breakpoint: swap full ↔ collapsed nav */
+@media (max-width: 700px) {
+  .nav-full      { display: none; }
+  .nav-cta       { display: none; }
+  .nav-collapsed { display: block; }
+}
+
+
+/* ============================================================
+   6. HERO SECTION
+   ============================================================ */
 .hero {
   display: flex;
-  text-align: center;
-  justify-items: center;
-  align-items: center;
-  /*padding: 150px 20px 170px;*/
   flex-direction: row;
-  gap: 20px;
+  align-items: center;
   justify-content: space-evenly;
+  text-align: center;
+  gap: 20px;
   padding-left: 20px;
-  height: 60vh;
-  height: 60dvh;
-  /*width: fit-content;*/
-  background: url("castle_illustration.webp") center/cover no-repeat fixed;
-  background-blend-mode: lighten;
-  background-position-y: 25px;
-  border: solid green 2px;
+  min-height: 60vh;
+  min-height: 60dvh;
 }
-.hero > div{
+
+
+.hero-content {
   display: inline-flex;
-  /*padding: 150px 20px 170px;*/
   flex-direction: column;
-  /*height: 0.5vh;
-  height: 0.5dvh;*/
-  /*width: fit-content;*/
-  border: solid hotpink 2px;
+  gap: 16px;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.6);
 }
 
 .hero h1 {
-  /*font-size: 3.4rem;*/
-  font-size: clamp(0.7rem, 1.5rem + 5vw, 2rem);
-  line-height: 1.2;
-  text-shadow: 0 0 12px #4a3cff;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2rem + 3vw, 3.6rem);
+  line-height: 1.15;
+  color: var(--text-primary);
 }
 
-.btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 6px 12px;
-  /*background: linear-gradient(#aa3a20, #7a1f10);*/
-  color: #fff;
-  border-radius: 8px;
-  text-decoration: none;
-  border-image: url('button_red.webp') 80 350 80 350 fill / 80px 350px 80px 350px;
-/*padding: 8px;*/
-image-rendering:pixelated;
+.hero-title-accent {
+  color: var(--text-gold);
+  text-shadow: 0 0 20px var(--accent-glow), 0 2px 16px rgba(0,0,0,0.6);
 }
 
-/* === FEATURES GRID === */
+/* Spacer pushes the content left so the castle illustration breathes */
+.hero-spacer {
+  flex: 1;
+  max-width: 50%;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-content { align-items: center; }
+  .hero-spacer  { display: none; }
+}
+
+
+/* ============================================================
+   7. FEATURES GRID
+   ============================================================
+   Uses minmax(min(260px, 100%), 1fr) — the min() prevents
+   horizontal overflow on viewports narrower than 260px.
+   ============================================================ */
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 20px;
-  padding: 20px 30px;
-  background: rgba(18, 15, 50, 0.6);
-  backdrop-filter: blur(4px);
+  padding: 32px var(--section-pad-x);
+
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-features);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
-.features h2 {
-  color: #f0eaff;
-  margin-bottom: 8px;
-}
-
-.features div {
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 20px 32px;
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  background: var(--bg-card);
   text-align: center;
-  padding: 10px;
-  padding-top: 0px;
-  padding-bottom: 40px;
-  top:-10px;
-  border: 1px solid rgba(140, 110, 255, 0.35);
-  border-radius: 10px;
 }
 
-.features #explore {
-  background: url('bg_exploration.jpg') no-repeat center/cover;
+.feature-card h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 0.8rem + 1vw, 1.25rem);
+  color: var(--text-primary);
 }
 
-.features #elements {
-  background: url('bg_elements.jpg') no-repeat center/cover;
+.feature-card h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 0.8rem + 1vw, 1.2rem);
+  color: var(--text-primary);
 }
 
-.features #updates{
-  /*background: url('bg_updates.jpg') no-repeat center/contain;*/
-  border-image: url('bg_updates.jpg') 4 4 4 4 fill / 4px 4px 4px 4px;
-  
-  padding-top: 10px;
-  padding-bottom: 10px;
+.feature-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.55;
 }
 
-.features #updates p {
-  text-align: initial !important;
-  padding-left: 130px;
+/* Individual card backgrounds */
+#explore {
+  background-image: url("bg_exploration.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+#elements {
+  background-image: url("bg_elements.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+#updates {
+  border-image: url("bg_updates.jpg") 4 4 4 4 fill / 4px 4px 4px 4px;
+  text-align: left;
+}
+
+#updates .update-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* Indent past the thumbnail area if bg_updates has one on the left */
+  padding-left: clamp(0px, 18vw, 130px);
+}
+
+
+/* ============================================================
+   8. BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-block;
+  font-family: var(--font-display);
   font-size: 0.9rem;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  border-image: url("button_red.webp") 80 350 80 350 fill / 80px 350px 80px 350px;
+  cursor: pointer;
+  transition: filter 0.2s;
 }
 
-.features #updates h3 {
-  line-height: 1.3rem;
-  padding-top: 5px;
-}
+.btn:hover { filter: brightness(1.15); }
 
 .small-btn {
   display: inline-block;
-  margin-top: 10px;
-  padding: 6px 12px;
-  /*background: #5c5aff;*/
-  border-radius: 5px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
   color: #fff;
-  text-decoration: none;
-    border-image: url('button_green.webp') 80 350 80 350 fill / 80px 350px 80px 350px;
-      /*padding: 8px;*/
-        image-rendering:pixelated;
-
+  padding: 6px 12px;
+  border-radius: 5px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  border-image: url("button_green.webp") 80 350 80 350 fill / 80px 350px 80px 350px;
+  cursor: pointer;
+  transition: filter 0.2s;
 }
 
-/* === DECORATIVE CORNERS === */
+.small-btn:hover { filter: brightness(1.15); }
+
+
+/* ============================================================
+   9. DECORATIVE CORNERS
+   ============================================================ */
 .decor {
   position: fixed;
-  width: 140px;
-  height: 140px;
-  background: url("leaf_corner.webp") no-repeat center/contain;
-  opacity: 0.9;
+  width: clamp(80px, 10vw, 140px);
+  height: clamp(80px, 10vw, 140px);
+  background: url("leaf_corner.webp") no-repeat center / contain;
+  opacity: 0.85;
   pointer-events: none;
+  z-index: 50;
 }
 
-.decor-top-left { top: 0; left: 0; }
-.decor-top-right { top: 0; right: 0; transform: scaleX(-1); }
-.decor-bottom-left { bottom: 0; left: 0; transform: scaleY(-1); }
+.decor-top-left     { top: 0; left: 0; }
+.decor-top-right    { top: 0; right: 0;  transform: scaleX(-1); }
+.decor-bottom-left  { bottom: 0; left: 0;  transform: scaleY(-1); }
 .decor-bottom-right { bottom: 0; right: 0; transform: scale(-1, -1); }
+
+/* Hide on very small screens so they don't crowd content */
+@media (max-width: 480px) {
+  .decor { display: none; }
+}

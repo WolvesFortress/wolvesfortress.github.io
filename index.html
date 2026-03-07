@@ -3,57 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WolvesFortress</title>
+  <title>Luprune — WolvesFortress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-    <img src="title_logo.webp" class="logo">
-  <nav>
-    <a class="active">World</a>
-    <a>Gameplay</a>
-    <a>Characters</a>
-    <a>Media</a>
-    <a>Devlog</a>
-    <a>Community</a>
-    <!--a>GitHub</a//-->
-    <a class="small-btn">Join the Adventure</a>
-  </nav>
-</header>
+  <!-- Fixed background layers (avoids mobile background-attachment:fixed bug) -->
+  <img src="bg_night.webp"           class="bg-img bg-night"   alt="">
+  <img src="castle_illustration.webp" class="bg-img bg-castle"  alt="">
 
-<section class="hero">
-  <div>
-  <h1>Unveil the Secrets of<br>Luprune</h1>
-  <a class="btn">Begin Your Quest</a>
-  </div>
-  <div class="spacer"></div>
-</section>
+  <!-- ===================== HEADER / NAV ===================== -->
+  <header>
+    <a href="/" class="logo-link">
+      <img src="title_logo.webp" class="logo" alt="WolvesFortress">
+    </a>
 
-<section class="features">
-  <div id="explore">
-    <h2>Explore Enchanted Lands</h2>
-    <p>Discover mystical realms, hidden forests, and ancient dungeons.</p>
-  </div>
+    <!-- Full nav: centered in the middle grid column -->
+    <nav class="nav-full">
+      <a class="active" href="#">World</a>
+      <a href="#">Gameplay</a>
+      <a href="#">Characters</a>
+      <a href="#">Media</a>
+      <a href="#">Devlog</a>
+      <a href="#">Community</a>
+    </nav>
 
-  <div id="elements">
-    <h2>Epic Elemental Bosses</h2>
-    <p>Battle powerful, multi-stage elemental foes.</p>
-  </div>
+    <!-- CTA: right-most grid column -->
+    <a class="small-btn nav-cta" href="#">Join the Adventure</a>
 
-  <div id="updates">
-    <h3>Latest Updates</h3>
-    <p><strong>New Dungeon Revealed!</strong><br>The Ember Caverns<br> - Are you brave enough to face the depths?<br>
-    <a class="small-btn">Read More</a>
-    </p>
-  </div>
-</section>
+    <!-- Collapsed nav: <details> needs zero JS for open/close -->
+    <details class="nav-collapsed">
+      <summary>
+        <span class="nav-current">World</span>
+        <span class="nav-arrow">&#9660;</span>
+      </summary>
+      <nav class="nav-dropdown">
+        <a class="active" href="#">World</a>
+        <a href="#">Gameplay</a>
+        <a href="#">Characters</a>
+        <a href="#">Media</a>
+        <a href="#">Devlog</a>
+        <a href="#">Community</a>
+        <a class="small-btn" href="#">Join the Adventure</a>
+      </nav>
+    </details>
+  </header>
 
-<!-- Decorative corners -->
-<div class="decor decor-top-left"></div>
-<div class="decor decor-top-right"></div>
-<div class="decor decor-bottom-left"></div>
-<div class="decor decor-bottom-right"></div>
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Unveil the Secrets of<br><span class="hero-title-accent">Luprune</span></h1>
+      <a class="btn" href="#">Begin Your Quest</a>
+    </div>
+    <div class="hero-spacer" aria-hidden="true"></div>
+  </section>
+
+  <!-- ===================== FEATURES ===================== -->
+  <section class="features">
+
+    <div class="feature-card" id="explore">
+      <h2>Explore Enchanted Lands</h2>
+      <p>Discover mystical realms, hidden forests, and ancient dungeons.</p>
+    </div>
+
+    <div class="feature-card" id="elements">
+      <h2>Epic Elemental Bosses</h2>
+      <p>Battle powerful, multi-stage elemental foes.</p>
+    </div>
+
+    <div class="feature-card" id="updates">
+      <h3>Latest Updates</h3>
+      <div class="update-body">
+        <p>
+          <strong>New Dungeon Revealed!</strong><br>
+          The Ember Caverns — Are you brave enough to face the depths?
+        </p>
+        <a class="small-btn" href="#">Read More</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Decorative corners -->
+  <div class="decor decor-top-left"     aria-hidden="true"></div>
+  <div class="decor decor-top-right"    aria-hidden="true"></div>
+  <div class="decor decor-bottom-left"  aria-hidden="true"></div>
+  <div class="decor decor-bottom-right" aria-hidden="true"></div>
 
 </body>
 </html>
