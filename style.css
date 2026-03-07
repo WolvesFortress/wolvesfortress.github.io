@@ -103,21 +103,18 @@ a {
   position: fixed;
   inset: 0;
   width: 100vw;
-  height: 100lvh; /* lvh = large viewport height — never shrinks when browser bar hides */
+  height: 100%;
   object-fit: cover;
   object-position: center;
   pointer-events: none;
   user-select: none;
 }
 
-/* Page-wide night sky — sits furthest back */
-/* .bg-night  { z-index: -2; } */
+.bg-night  { z-index: 1; }
+.bg-castle { z-index: 2; object-position: center 25%; }
 
-/* Castle illustration — sits just above the night sky, below all content */
-.bg-castle {
-  /* z-index: -1; */
-  object-position: center 25%;
-}
+/* Everything else sits above the backgrounds */
+header, main, section, .decor { position: relative; z-index: 3; }
 
 
 /* ============================================================
@@ -130,7 +127,7 @@ a {
 header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 10;
   height: var(--header-height);
   box-sizing: border-box;
 
@@ -186,7 +183,8 @@ header {
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, var(--text-gold), #d8a93c);
+  background: radial-gradient(var(--text-gold), #d8a93c);
+  border-radius: 40% 50%;
   border-radius: 2px;
 }
 
@@ -225,8 +223,9 @@ header {
   left: 10px;
   right: 10px; /* matches the horizontal padding */
   height: 2px;
-  background: linear-gradient(90deg, var(--text-gold), #d8a93c);
-  border-radius: 2px;
+  background: radial-gradient(var(--text-gold), #d8a93c);
+  border-radius: 40% 50%;
+  /* border-radius: 2px; */
 }
 
 .nav-arrow {
@@ -286,8 +285,10 @@ header {
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, var(--text-gold), #d8a93c);
-  border-radius: 2px;
+  /* background: linear-gradient(90deg, var(--text-gold), #d8a93c);
+  border-radius: 2px; */
+  background: radial-gradient(var(--text-gold), #d8a93c);
+  border-radius: 40% 50%;
 }
 
 /* Breakpoint: swap nav-full for nav-collapsed in the 1fr middle slot */
@@ -308,29 +309,42 @@ header {
   text-align: center;
   gap: 20px;
   padding-left: 20px;
-  min-height: 60vh;
-  min-height: 60dvh;
+  padding-right: 20px;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 
 
 .hero-content {
   display: inline-flex;
   flex-direction: column;
-  gap: 16px;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.6);
-  z-index: 1;
+  gap: 8px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
 }
 
-.hero h1 {
+.hero h2 {
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 2rem + 3vw, 3.6rem);
-  line-height: 1.15;
+  font-size: clamp(0.6rem, 1rem + 3vw, 1.2rem);
+  line-height: 0.6rem;
   color: var(--text-primary);
 }
 
 .hero-title-accent {
   color: var(--text-gold);
   text-shadow: 0 0 20px var(--accent-glow), 0 2px 16px rgba(0,0,0,0.6);
+  font-size: 2.5rem;
+  line-height: 1.15rem;
+}
+
+.hero hr {
+  content: "";
+  width: 80%;
+  height: 3px;
+  background: radial-gradient(var(--text-gold), #d8a93c);
+  border-radius: 40% 50%;
+  z-index: -1;
+  align-self: center;
+  margin-top: 10px;
 }
 
 /* Spacer pushes the content left so the castle illustration breathes */
@@ -437,9 +451,10 @@ header {
   border-radius: 8px;
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
-  border-image: url("button_red.webp") 80 350 80 350 fill / 80px 350px 80px 350px;
+  border-image: url("button_red.webp") 160 700 fill / 80px 350px;
   cursor: pointer;
   transition: filter 0.2s;
+  margin-top: 1rem;
 }
 
 .btn:hover { filter: brightness(1.15); }
@@ -457,7 +472,7 @@ header {
   border-radius: 5px;
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
-  border-image: url("button_green.webp") 80 350 80 350 fill / 80px 350px 80px 350px;
+  border-image: url("button_green.webp") 80 350 fill / 10px 40px;
   cursor: pointer;
   transition: filter 0.2s;
 }
