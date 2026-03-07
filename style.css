@@ -123,21 +123,23 @@ a {
 /* ============================================================
    4. HEADER & NAVIGATION
    ============================================================
-   3-column grid: [logo] [nav centered] [cta button]
-   The logo and cta columns are auto-sized; the nav gets 1fr
-   so it fills the middle and centers its links freely.
+   [logo] [nav: 1fr] [cta]
+   Header has a max-width so nav links don't stretch to absurdity
+   on ultrawide — padded symmetrically inside.
    ============================================================ */
 header {
   position: sticky;
   top: 0;
   z-index: 100;
   height: var(--header-height);
+  box-sizing: border-box;
 
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 16px;
-  padding: 0 var(--section-pad-x);
+  /* On ultrawide, grow padding so content stays within ~1400px */
+  padding: 0 max(var(--section-pad-x), calc((100vw - 1400px) / 2 + var(--section-pad-x)));
 
   background: var(--bg-header);
   border-bottom: 1px solid var(--accent-purple);
@@ -152,23 +154,17 @@ header {
   height: auto;
 }
 
-/* Full nav — centered in its 1fr column */
+/* Nav — fills the 1fr middle, centers and spaces links */
 .nav-full {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--nav-gap);
-  flex-wrap: nowrap;
-  /* Hide the CTA from inline flow — it lives in the 3rd grid column */
-}
-
-.nav-full .small-btn {
-  display: none;
+  gap: clamp(8px, 2vw, 28px);
 }
 
 .nav-full a {
   font-family: var(--font-body);
-  font-size: clamp(0.8rem, 0.65rem + 0.6vw, 1rem);
+  font-size: clamp(0.78rem, 0.6rem + 0.5vw, 0.95rem);
   color: var(--text-muted);
   white-space: nowrap;
   position: relative;
@@ -176,9 +172,7 @@ header {
   transition: color 0.2s;
 }
 
-.nav-full a:hover {
-  color: var(--text-primary);
-}
+.nav-full a:hover { color: var(--text-primary); }
 
 .nav-full a.active {
   color: var(--text-gold);
@@ -196,26 +190,18 @@ header {
   border-radius: 2px;
 }
 
-
-/* Right column wrapper */
-.nav-right {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-}
-
 /* ============================================================
    5. NAV: COLLAPSED / HAMBURGER (details + summary, zero JS)
    ============================================================ */
 .nav-collapsed {
   display: none;
-  position: relative;
+  /* sits in the same 1fr middle cell as nav-full */
+  text-align: center;
 }
 
 .nav-collapsed summary {
   list-style: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
@@ -284,13 +270,8 @@ header {
   text-align: center;
 }
 
-.nav-dropdown a:last-child {
-  border-bottom: none;
-}
-
-.nav-dropdown a:hover {
-  color: var(--text-primary);
-}
+.nav-dropdown a:last-child { border-bottom: none; }
+.nav-dropdown a:hover { color: var(--text-primary); }
 
 .nav-dropdown a.active {
   color: var(--text-gold);
@@ -308,7 +289,7 @@ header {
   border-radius: 2px;
 }
 
-/* Breakpoint: show toggle, keep CTA */
+/* Breakpoint: swap nav-full for nav-collapsed in the 1fr middle slot */
 @media (max-width: 700px) {
   .nav-full      { display: none; }
   .nav-collapsed { display: block; }

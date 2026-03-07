@@ -20,7 +20,7 @@
       <img src="title_logo.webp" class="logo" alt="WolvesFortress">
     </a>
 
-    <!-- Col 2: full nav links, centered (hidden on mobile) -->
+    <!-- Middle: full links on desktop, toggle+dropdown on mobile -->
     <nav class="nav-full">
       <a class="active" href="#">World</a>
       <a href="#">Gameplay</a>
@@ -30,26 +30,22 @@
       <a href="#">Community</a>
     </nav>
 
-    <!-- Col 3: right side — toggle (mobile only) then CTA (always) -->
-    <div class="nav-right">
-      <!-- Collapsed toggle: hidden on desktop, shown on mobile -->
-      <details class="nav-collapsed">
-        <summary>
-          <span class="nav-current">World</span>
-          <span class="nav-arrow">&#9660;</span>
-        </summary>
-        <nav class="nav-dropdown">
-          <a class="active" href="#">World</a>
-          <a href="#">Gameplay</a>
-          <a href="#">Characters</a>
-          <a href="#">Media</a>
-          <a href="#">Devlog</a>
-          <a href="#">Community</a>
-        </nav>
-      </details>
-      <!-- CTA: always shown, always last = rightmost -->
-      <a class="small-btn" href="#">Join the Adventure</a>
-    </div>
+    <details class="nav-collapsed">
+      <summary>
+        <span class="nav-current">World</span>
+        <span class="nav-arrow">&#9660;</span>
+      </summary>
+      <nav class="nav-dropdown">
+        <a class="active" href="#">World</a>
+        <a href="#">Gameplay</a>
+        <a href="#">Characters</a>
+        <a href="#">Media</a>
+        <a href="#">Devlog</a>
+        <a href="#">Community</a>
+      </nav>
+    </details>
+
+    <a class="small-btn" href="#">Join the Adventure</a>
   </header>
 
   <!-- ===================== HERO ===================== -->
