@@ -111,11 +111,11 @@ a {
 }
 
 /* Page-wide night sky — sits furthest back */
-.bg-night  { z-index: -2; }
+/* .bg-night  { z-index: -2; } */
 
 /* Castle illustration — sits just above the night sky, below all content */
 .bg-castle {
-  z-index: -1;
+  /* z-index: -1; */
   object-position: center 25%;
 }
 
