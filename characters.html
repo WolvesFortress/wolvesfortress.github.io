@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Characters — Luprune</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ── Page hero ── */
+    .page-hero {
+      text-align: center;
+      padding: 64px var(--section-pad-x) 48px;
+    }
+
+    .page-hero .eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3vw + 1rem, 3.2rem);
+      color: var(--text-gold);
+      text-shadow: 0 0 32px var(--accent-glow);
+      margin-bottom: 16px;
+    }
+
+    .page-hero p {
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 0.9rem + 0.4vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto;
+      font-style: italic;
+    }
+
+    /* ── Section divider ── */
+    .cast-section {
+      padding: 16px var(--section-pad-x) 56px;
+      background: var(--bg-features);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .cast-section + .cast-section {
+      border-top: 1px solid var(--accent-purple);
+      background: rgba(12, 10, 35, 0.55);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
+      padding-top: 40px;
+    }
+
+    .section-heading::before,
+    .section-heading::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--accent-purple);
+    }
+
+    .section-heading h2 {
+      font-family: var(--font-display);
+      font-size: clamp(0.9rem, 0.7rem + 0.8vw, 1.1rem);
+      color: var(--text-gold);
+      white-space: nowrap;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Character card grid ── */
+    .char-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── Individual character card ── */
+    .char-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      padding: 20px 16px 24px;
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      background: var(--bg-card);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+
+    .char-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(80, 60, 200, 0.25);
+    }
+
+    /* Portrait area */
+    .char-portrait {
+      width: 120px;
+      height: 140px;
+      border-radius: 8px;
+      border: 1px solid var(--border-card);
+      overflow: hidden;
+      background: rgba(30, 20, 70, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .char-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .char-portrait.silhouette {
+      background: linear-gradient(160deg, #0d0b25, #1a1240);
+      filter: brightness(0.7);
+    }
+
+    .char-portrait.photo {
+      filter: sepia(0.8) brightness(0.6) contrast(0.8);
+      position: relative;
+    }
+
+    .char-portrait.photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+      border-radius: 8px;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    .char-name {
+      font-family: var(--font-display);
+      font-size: clamp(0.9rem, 0.75rem + 0.5vw, 1.05rem);
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .char-role {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--text-gold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: -6px;
+    }
+
+    .char-desc {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    /* Unknown / mystery card */
+    .char-card.mystery .char-name,
+    .char-card.mystery .char-desc {
+      color: var(--text-muted);
+      filter: blur(0px);
+    }
+
+    .char-card.mystery .char-portrait {
+      background: #080618;
+    }
+
+    /* Boss cards — slightly wider, darker feel */
+    .char-card.boss {
+      border-color: rgba(200, 80, 60, 0.35);
+      background: rgba(40, 10, 10, 0.55);
+    }
+
+    .char-card.boss:hover {
+      box-shadow: 0 8px 32px rgba(200, 80, 60, 0.2);
+    }
+
+    .char-card.boss .char-name {
+      color: #ffb8a0;
+    }
+
+    .char-card.boss .char-role {
+      color: #d87060;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Fixed background layers -->
+  <img src="bg_night.webp"            class="bg-img bg-night"  alt="">
+  <img src="castle_illustration.webp" class="bg-img bg-castle" alt="">
+
+  <!-- ===================== HEADER ===================== -->
+  <header>
+    <a href="index.html" class="logo-link">
+      <img src="title_logo.webp" class="logo" alt="WolvesFortress">
+    </a>
+
+    <nav class="nav-full">
+      <a href="world.html">World</a>
+      <a href="gameplay.html">Gameplay</a>
+      <a class="active" href="characters.html">Characters</a>
+      <a href="media.html">Media</a>
+      <a href="devlog.html">Devlog</a>
+      <a href="community.html">Community</a>
+    </nav>
+
+    <details class="nav-collapsed">
+      <summary>
+        <span class="nav-current">Characters</span>
+        <span class="nav-arrow">&#9660;</span>
+      </summary>
+      <nav class="nav-dropdown">
+        <a href="world.html">World</a>
+        <a href="gameplay.html">Gameplay</a>
+        <a class="active" href="characters.html">Characters</a>
+        <a href="media.html">Media</a>
+        <a href="devlog.html">Devlog</a>
+        <a href="community.html">Community</a>
+      </nav>
+    </details>
+
+    <a class="small-btn" href="#">Join the Adventure</a>
+  </header>
+
+  <!-- ===================== PAGE HERO ===================== -->
+  <section class="page-hero">
+    <p class="eyebrow">The Cast of Luprune</p>
+    <h1>A curious scholar. A brilliant disaster.<br>And someone lurking in the treeline.</h1>
+    <p>Some of them will help you. Some of them will make things considerably worse. Most of them will do both.</p>
+  </section>
+
+  <!-- ===================== HEROES ===================== -->
+  <section class="cast-section">
+
+    <div class="section-heading">
+      <h2>~ Meet the Heroes ~</h2>
+    </div>
+
+    <div class="char-grid">
+
+      <!-- The Protagonist -->
+      <div class="char-card">
+        <div class="char-portrait">
+          <!-- [portrait placeholder: young adventurer, curious expression] -->
+          🧭
+        </div>
+        <div class="char-name">You</div>
+        <div class="char-role">The Protagonist</div>
+        <div class="char-desc">Raised in a lab full of controlled chaos. Quick learner. Currently carrying something that belongs to someone else.</div>
+      </div>
+
+      <!-- The Professor -->
+      <div class="char-card">
+        <div class="char-portrait">
+          <!-- [portrait placeholder: elderly man, wild gray hair, stained coat, delighted expression] -->
+          🧪
+        </div>
+        <div class="char-name">The Professor</div>
+        <div class="char-role">Father · Researcher · Disaster</div>
+        <div class="char-desc">Former lead elemental researcher. Responsible for at least six of Petalcove's documented explosion incidents. Loves you very much and has almost definitely not forgotten your birthday.<br><br><em>"I had an excellent theory about this once. It's almost come back to me twice."</em></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== NPCS ===================== -->
+  <section class="cast-section">
+
+    <div class="section-heading">
+      <h2>~ Familiar Faces ~</h2>
+    </div>
+
+    <div class="char-grid">
+
+      <!-- Mira -->
+      <div class="char-card">
+        <div class="char-portrait">
+          <!-- [portrait placeholder: young woman, apron, dirt on hands, slightly suspicious expression] -->
+          🌸
+        </div>
+        <div class="char-name">Mira</div>
+        <div class="char-role">The Flower Shop Girl</div>
+        <div class="char-desc">Tends the only garden in Petalcove. Has strong opinions about soil, water rights, and people who linger too long near her lily pond. Surprisingly well-informed for someone who just sells flowers.</div>
+      </div>
+
+      <!-- Mystery NPC slot -->
+      <div class="char-card mystery">
+        <div class="char-portrait silhouette">
+          <!-- [silhouette: cloaked figure, treeline background, two yellow eyes visible] -->
+          👁
+        </div>
+        <div class="char-name">???</div>
+        <div class="char-role">Seen Near the Forest</div>
+        <div class="char-desc">Something has been watching you since you left the cave. It's been watching for a while, actually.<br><br><em>Coming soon.</em></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== VILLAINS & BEASTS ===================== -->
+  <section class="cast-section">
+
+    <div class="section-heading">
+      <h2>~ Villains &amp; Beasts ~</h2>
+    </div>
+
+    <div class="char-grid">
+
+      <!-- The Tutel -->
+      <div class="char-card boss">
+        <div class="char-portrait">
+          <!-- [boss portrait: enormous crystal turtle, glowing crystal blooming from shell] -->
+          🐢
+        </div>
+        <div class="char-name">The Tutel</div>
+        <div class="char-role">Crystal Colossus</div>
+        <div class="char-desc">Wandered somewhere it probably shouldn't have. Absorbed a frankly irresponsible number of elemental crystals. Now very large, very stuck, and very upset about visitors.</div>
+      </div>
+
+      <!-- The Mother / mystery -->
+      <div class="char-card boss mystery">
+        <div class="char-portrait photo">
+          <!-- [washed-out torn photograph, face unclear, elegant figure in a robe] -->
+          📷
+        </div>
+        <div class="char-name">???</div>
+        <div class="char-role">Found Behind a Loose Board</div>
+        <div class="char-desc">The Professor went very quiet when you showed it to him.<br><br><em>Some questions are better left for later.</em></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Decorative corners -->
+  <div class="decor decor-top-left"     aria-hidden="true"></div>
+  <div class="decor decor-top-right"    aria-hidden="true"></div>
+  <div class="decor decor-bottom-left"  aria-hidden="true"></div>
+  <div class="decor decor-bottom-right" aria-hidden="true"></div>
+
+</body>
+</html>
