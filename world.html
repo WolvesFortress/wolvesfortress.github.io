@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World — Luprune</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ── Page hero ── */
+    .page-hero {
+      text-align: center;
+      padding: 64px var(--section-pad-x) 48px;
+    }
+
+    .page-hero .eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3vw + 1rem, 3.2rem);
+      color: var(--text-gold);
+      text-shadow: 0 0 32px var(--accent-glow);
+      margin-bottom: 16px;
+    }
+
+    .page-hero p {
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 0.9rem + 0.4vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto;
+      font-style: italic;
+    }
+
+    /* ── Shared section wrapper ── */
+    .world-section {
+      padding: 56px var(--section-pad-x);
+      border-top: 1px solid var(--accent-purple);
+      background: var(--bg-features);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .world-section:nth-child(even) {
+      background: rgba(12, 10, 35, 0.55);
+    }
+
+    /* ── Section heading ── */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .section-heading::before,
+    .section-heading::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--accent-purple);
+    }
+
+    .section-heading h2 {
+      font-family: var(--font-display);
+      font-size: clamp(0.9rem, 0.7rem + 0.8vw, 1.1rem);
+      color: var(--text-gold);
+      white-space: nowrap;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Intro block — text + map side by side ── */
+    .intro-block {
+      display: flex;
+      align-items: center;
+      gap: clamp(24px, 5vw, 64px);
+    }
+
+    .intro-block .text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .intro-block h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 1rem + 1.5vw, 2rem);
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .intro-block p {
+      font-family: var(--font-body);
+      font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.1rem);
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .intro-block p em {
+      color: var(--text-primary);
+      font-style: normal;
+    }
+
+    .map-placeholder {
+      flex: 1;
+      aspect-ratio: 4 / 3;
+      border-radius: 12px;
+      border: 1px solid var(--border-card);
+      background: rgba(20, 14, 55, 0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 0.9rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-placeholder::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(74, 60, 255, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .map-placeholder .map-icon {
+      font-size: 2.5rem;
+      opacity: 0.4;
+    }
+
+    /* ── Nations teaser grid ── */
+    .nations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .nation-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+      padding: 24px 16px;
+      border: 1px solid var(--border-card);
+      border-radius: 10px;
+      background: var(--bg-card);
+    }
+
+    .nation-card .na-icon { font-size: 1.8rem; }
+
+    .nation-card .na-name {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      letter-spacing: 0.05em;
+    }
+
+    .nation-card .na-desc {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    /* Locked/unknown nation */
+    .nation-card.unknown {
+      border-style: dashed;
+      opacity: 0.5;
+    }
+
+    .nation-card.unknown .na-name {
+      color: var(--text-muted);
+      filter: blur(3px);
+      user-select: none;
+    }
+
+    /* ── Petalcove feature block ── */
+    .petalcove-block {
+      display: flex;
+      align-items: center;
+      gap: clamp(24px, 5vw, 64px);
+    }
+
+    .petalcove-block .visual {
+      flex: 1;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      border: 1px solid var(--border-card);
+      background: rgba(20, 14, 55, 0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 0.9rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .petalcove-block .visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(60, 180, 100, 0.06) 0%, transparent 70%);
+    }
+
+    .petalcove-block .visual .vis-icon {
+      font-size: 2.5rem;
+      opacity: 0.4;
+    }
+
+    .petalcove-block .text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .petalcove-block .eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-gold);
+    }
+
+    .petalcove-block h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 1rem + 1.5vw, 2rem);
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .petalcove-block p {
+      font-family: var(--font-body);
+      font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.1rem);
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .petalcove-block p em {
+      color: var(--text-primary);
+      font-style: normal;
+    }
+
+    /* ── Teaser note ── */
+    .coming-soon {
+      text-align: center;
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      padding: 12px 0 0;
+    }
+
+    @media (max-width: 640px) {
+      .intro-block,
+      .petalcove-block {
+        flex-direction: column;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Fixed background layers -->
+  <img src="bg_night.webp"            class="bg-img bg-night"  alt="">
+  <img src="castle_illustration.webp" class="bg-img bg-castle" alt="">
+
+  <!-- ===================== HEADER ===================== -->
+  <header>
+    <a href="index.html" class="logo-link">
+      <img src="title_logo.webp" class="logo" alt="WolvesFortress">
+    </a>
+
+    <nav class="nav-full">
+      <a class="active" href="world.html">World</a>
+      <a href="gameplay.html">Gameplay</a>
+      <a href="characters.html">Characters</a>
+      <a href="media.html">Media</a>
+      <a href="devlog.html">Devlog</a>
+      <a href="community.html">Community</a>
+    </nav>
+
+    <details class="nav-collapsed">
+      <summary>
+        <span class="nav-current">World</span>
+        <span class="nav-arrow">&#9660;</span>
+      </summary>
+      <nav class="nav-dropdown">
+        <a class="active" href="world.html">World</a>
+        <a href="gameplay.html">Gameplay</a>
+        <a href="characters.html">Characters</a>
+        <a href="media.html">Media</a>
+        <a href="devlog.html">Devlog</a>
+        <a href="community.html">Community</a>
+      </nav>
+    </details>
+
+    <a class="small-btn" href="#">Join the Adventure</a>
+  </header>
+
+  <!-- ===================== PAGE HERO ===================== -->
+  <section class="page-hero">
+    <p class="eyebrow">The World of Luprune</p>
+    <h1>Nine elements. Countless secrets.<br>One very accident-prone lab.</h1>
+    <p>Magic here isn't sparkles and mystery — it's science, and it's everywhere. Welcome to Luprune.</p>
+  </section>
+
+  <!-- ===================== OVERVIEW ===================== -->
+  <section class="world-section">
+    <div class="intro-block">
+      <div class="text">
+        <h2>A World Built on Elements</h2>
+        <p>Elemental crystals light the streets, power the forges, and keep the fish cold at the market. Scholars study them obsessively. Nations are built around them. And somewhere, tucked in ancient ruins and half-forgotten caves, are rune artifacts that predate all of it — that nobody quite understands yet.</p>
+        <p>It's a wonderful, weird, and <em>occasionally explosive</em> place to live.</p>
+      </div>
+      <div class="map-placeholder">
+        <span class="map-icon">🗺️</span>
+        <span>[Illustrated world map — hand-drawn fantasy style]</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== NATIONS ===================== -->
+  <section class="world-section">
+    <div class="section-heading">
+      <h2>~ Nations of Luprune ~</h2>
+    </div>
+    <div class="nations-grid">
+      <!-- Starting nation — known -->
+      <div class="nation-card">
+        <span class="na-icon">🏰</span>
+        <span class="na-name">The Gothic Heartlands</span>
+        <span class="na-desc">Grand fortresses, cobbled streets, and a research culture that borders on obsession. Your story starts here.</span>
+      </div>
+      <!-- Remaining 8 — teased but locked -->
+      <div class="nation-card unknown">
+        <span class="na-icon">🌋</span>
+        <span class="na-name">████████</span>
+        <span class="na-desc">To be discovered.</span>
+      </div>
+      <div class="nation-card unknown">
+        <span class="na-icon">🌊</span>
+        <span class="na-name">████████</span>
+        <span class="na-desc">To be discovered.</span>
+      </div>
+      <div class="nation-card unknown">
+        <span class="na-icon">🌿</span>
+        <span class="na-name">████████</span>
+        <span class="na-desc">To be discovered.</span>
+      </div>
+      <div class="nation-card unknown">
+        <span class="na-icon">⛰️</span>
+        <span class="na-name">████████</span>
+        <span class="na-desc">To be discovered.</span>
+      </div>
+      <div class="nation-card unknown">
+        <span class="na-icon">❄️</span>
+        <span class="na-name">████████</span>
+        <span class="na-desc">To be discovered.</span>
+      </div>
+      <div class="nation-card unknown">
+        <span class="na-icon">⚡</span>
+        <span class="na-name">████████</span>
+        <span class="na-desc">To be discovered.</span>
+      </div>
+      <div class="nation-card unknown">
+        <span class="na-icon">☀️</span>
+        <span class="na-name">████████</span>
+        <span class="na-desc">To be discovered.</span>
+      </div>
+      <div class="nation-card unknown">
+        <span class="na-icon">🌑</span>
+        <span class="na-name">████████</span>
+        <span class="na-desc">To be discovered.</span>
+      </div>
+    </div>
+    <p class="coming-soon">Each nation is shaped by its element — its architecture, its people, its politics, and the secrets it would very much prefer you didn't ask about. More of the world will be revealed as the story unfolds.</p>
+  </section>
+
+  <!-- ===================== PETALCOVE ===================== -->
+  <section class="world-section">
+    <div class="section-heading">
+      <h2>~ Where It All Begins ~</h2>
+    </div>
+    <div class="petalcove-block">
+      <div class="visual">
+        <span class="vis-icon">🌸</span>
+        <span>[Petalcove concept art — pond, lily pads, flower shop, cosy Gothic buildings]</span>
+      </div>
+      <div class="text">
+        <span class="eyebrow">Petalcove</span>
+        <h2>A Quiet Town That Doesn't Know It's About to Be Important</h2>
+        <p>Tucked between a whispering forest and a lily-covered pond, Petalcove smells like flowers and woodsmoke. There's a flower shop, a tavern, a blacksmith, a sawmill, and a lab with scorch marks on every wall.</p>
+        <p>It's peaceful. Nothing ever really happens in Petalcove.</p>
+        <p><em>...Right?</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Decorative corners -->
+  <div class="decor decor-top-left"     aria-hidden="true"></div>
+  <div class="decor decor-top-right"    aria-hidden="true"></div>
+  <div class="decor decor-bottom-left"  aria-hidden="true"></div>
+  <div class="decor decor-bottom-right" aria-hidden="true"></div>
+
+</body>
+</html>
