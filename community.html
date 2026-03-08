@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community — Luprune</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ── Page hero ── */
+    .page-hero {
+      text-align: center;
+      padding: 64px var(--section-pad-x) 48px;
+    }
+
+    .page-hero .eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3vw + 1rem, 3.2rem);
+      color: var(--text-gold);
+      text-shadow: 0 0 32px var(--accent-glow);
+      margin-bottom: 16px;
+    }
+
+    .page-hero p {
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 0.9rem + 0.4vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto;
+      font-style: italic;
+    }
+
+    /* ── Section divider ── */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
+      padding-top: 40px;
+    }
+
+    .section-heading::before,
+    .section-heading::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--accent-purple);
+    }
+
+    .section-heading h2 {
+      font-family: var(--font-display);
+      font-size: clamp(0.9rem, 0.7rem + 0.8vw, 1.1rem);
+      color: var(--text-gold);
+      white-space: nowrap;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Wrapper ── */
+    .community-wrap {
+      padding: 0 var(--section-pad-x) 64px;
+      background: var(--bg-features);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-top: 1px solid var(--accent-purple);
+    }
+
+    /* ── Featured card (Discord) ── */
+    .discord-card {
+      display: flex;
+      align-items: center;
+      gap: clamp(20px, 4vw, 48px);
+      padding: 36px 40px;
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(88, 101, 242, 0.18), rgba(25, 18, 65, 0.6));
+      margin-bottom: 16px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .discord-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(88, 101, 242, 0.25);
+    }
+
+    .discord-card .dc-icon {
+      font-size: 3rem;
+      flex-shrink: 0;
+    }
+
+    .discord-card .dc-text h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 0.9rem + 0.8vw, 1.4rem);
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .discord-card .dc-text p {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .discord-card .dc-text p em {
+      color: var(--text-primary);
+      font-style: normal;
+    }
+
+    .discord-card .dc-arrow {
+      margin-left: auto;
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .discord-card:hover .dc-arrow {
+      transform: translateX(4px);
+    }
+
+    /* ── Social link grid ── */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: 16px;
+    }
+
+    .social-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      background: var(--bg-card);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .social-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(80, 60, 200, 0.2);
+    }
+
+    .social-card .sc-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .social-card .sc-text .sc-name {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .social-card .sc-text .sc-desc {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ── GitHub feature block ── */
+    .github-block {
+      display: flex;
+      align-items: center;
+      gap: clamp(20px, 4vw, 48px);
+      padding: 36px 40px;
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(30, 28, 36, 0.7), rgba(20, 14, 55, 0.6));
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .github-block:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(80, 60, 200, 0.2);
+    }
+
+    .github-block .gh-icon {
+      font-size: 3rem;
+      flex-shrink: 0;
+    }
+
+    .github-block .gh-text h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 0.9rem + 0.8vw, 1.4rem);
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .github-block .gh-text p {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .github-block .gh-text p em {
+      color: var(--text-primary);
+      font-style: normal;
+    }
+
+    .github-block .gh-arrow {
+      margin-left: auto;
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .github-block:hover .gh-arrow {
+      transform: translateX(4px);
+    }
+
+    @media (max-width: 540px) {
+      .discord-card,
+      .github-block {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px 20px;
+      }
+
+      .discord-card .dc-arrow,
+      .github-block .gh-arrow {
+        display: none;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Fixed background layers -->
+  <img src="bg_night.webp"            class="bg-img bg-night"  alt="">
+  <img src="castle_illustration.webp" class="bg-img bg-castle" alt="">
+
+  <!-- ===================== HEADER ===================== -->
+  <header>
+    <a href="index.html" class="logo-link">
+      <img src="title_logo.webp" class="logo" alt="WolvesFortress">
+    </a>
+
+    <nav class="nav-full">
+      <a href="world.html">World</a>
+      <a href="gameplay.html">Gameplay</a>
+      <a href="characters.html">Characters</a>
+      <a href="media.html">Media</a>
+      <a href="devlog.html">Devlog</a>
+      <a class="active" href="community.html">Community</a>
+    </nav>
+
+    <details class="nav-collapsed">
+      <summary>
+        <span class="nav-current">Community</span>
+        <span class="nav-arrow">&#9660;</span>
+      </summary>
+      <nav class="nav-dropdown">
+        <a href="world.html">World</a>
+        <a href="gameplay.html">Gameplay</a>
+        <a href="characters.html">Characters</a>
+        <a href="media.html">Media</a>
+        <a href="devlog.html">Devlog</a>
+        <a class="active" href="community.html">Community</a>
+      </nav>
+    </details>
+
+    <a class="small-btn" href="#">Join the Adventure</a>
+  </header>
+
+  <!-- ===================== PAGE HERO ===================== -->
+  <section class="page-hero">
+    <p class="eyebrow">WolvesFortress</p>
+    <h1>We build in the open.<br>Pull requests welcome.</h1>
+    <p>Loud opinions also welcome.</p>
+  </section>
+
+  <!-- ===================== COMMUNITY LINKS ===================== -->
+  <section class="community-wrap">
+
+    <div class="section-heading">
+      <h2>~ Come Hang Out ~</h2>
+    </div>
+
+    <!-- Discord — featured -->
+    <a class="discord-card" href="https://discord.gg/Vh7Usbs" target="_blank" rel="noopener">
+      <span class="dc-icon">💬</span>
+      <div class="dc-text">
+        <h3>Join the WolvesFortress Discord</h3>
+        <p>Lore debates, fanart, feedback, sneak peeks that haven't made it anywhere official yet, and the occasional heated argument about which element is objectively the best. <em>(It's Natura. We won't be taking questions.)</em></p>
+      </div>
+      <span class="dc-arrow">→</span>
+    </a>
+
+    <!-- Other socials -->
+    <div class="social-grid" style="margin-top: 16px; margin-bottom: 48px;">
+
+      <a class="social-card" href="https://youtube.com/@WolvesFortress" target="_blank" rel="noopener">
+        <span class="sc-icon">▶️</span>
+        <div class="sc-text">
+          <span class="sc-name">YouTube</span>
+          <span class="sc-desc">Devlogs, deep-dives & behind the scenes</span>
+        </div>
+      </a>
+
+      <a class="social-card" href="https://tiktok.com/@wolvesfortress" target="_blank" rel="noopener">
+        <span class="sc-icon">🎵</span>
+        <div class="sc-text">
+          <span class="sc-name">TikTok</span>
+          <span class="sc-desc">Clips, previews & the occasional chaos</span>
+        </div>
+      </a>
+
+      <a class="social-card" href="https://twitter.com/WolvesFortress" target="_blank" rel="noopener">
+        <span class="sc-icon">🐦</span>
+        <div class="sc-text">
+          <span class="sc-name">Twitter / X</span>
+          <span class="sc-desc">Updates, announcements & hot takes</span>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="section-heading">
+      <h2>~ Open Source ~</h2>
+    </div>
+
+    <!-- GitHub — featured -->
+    <a class="github-block" href="https://github.com/WolvesFortress" target="_blank" rel="noopener">
+      <span class="gh-icon">🐙</span>
+      <div class="gh-text">
+        <h3>WolvesFortress on GitHub</h3>
+        <p>The tools, mods, and systems we build don't live in a drawer. They're <em>public, forkable, and free to use</em>. We started building Luprune because we love what the community creates — and we want to give a little of that back. If something we made helps your project, brilliant. If you want to contribute to ours, the door's open.</p>
+      </div>
+      <span class="gh-arrow">→</span>
+    </a>
+
+  </section>
+
+  <!-- Decorative corners -->
+  <div class="decor decor-top-left"     aria-hidden="true"></div>
+  <div class="decor decor-top-right"    aria-hidden="true"></div>
+  <div class="decor decor-bottom-left"  aria-hidden="true"></div>
+  <div class="decor decor-bottom-right" aria-hidden="true"></div>
+
+</body>
+</html>
