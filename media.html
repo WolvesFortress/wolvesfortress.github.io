@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media — Luprune</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ── Page hero ── */
+    .page-hero {
+      text-align: center;
+      padding: 64px var(--section-pad-x) 48px;
+    }
+
+    .page-hero .eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3vw + 1rem, 3.2rem);
+      color: var(--text-gold);
+      text-shadow: 0 0 32px var(--accent-glow);
+      margin-bottom: 16px;
+    }
+
+    .page-hero p {
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 0.9rem + 0.4vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto;
+      font-style: italic;
+    }
+
+    /* ── Section wrapper ── */
+    .media-wrap {
+      padding: 0 var(--section-pad-x) 72px;
+      background: var(--bg-features);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-top: 1px solid var(--accent-purple);
+    }
+
+    /* ── Section heading ── */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
+      padding-top: 48px;
+    }
+
+    .section-heading::before,
+    .section-heading::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--accent-purple);
+    }
+
+    .section-heading h2 {
+      font-family: var(--font-display);
+      font-size: clamp(0.9rem, 0.7rem + 0.8vw, 1.1rem);
+      color: var(--text-gold);
+      white-space: nowrap;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Screenshots gallery ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .gallery-item {
+      aspect-ratio: 16 / 9;
+      border-radius: 10px;
+      border: 1px solid var(--border-card);
+      background: rgba(20, 14, 55, 0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 0.82rem;
+      text-align: center;
+      padding: 12px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 28px rgba(80, 60, 200, 0.2);
+    }
+
+    .gallery-item::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(74, 60, 255, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+
+    .gallery-item .gi-icon {
+      font-size: 1.8rem;
+      opacity: 0.35;
+    }
+
+    /* Featured / wide item */
+    .gallery-item.wide {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 580px) {
+      .gallery-item.wide { grid-column: span 1; }
+    }
+
+    /* ── Coming soon notice ── */
+    .coming-note {
+      text-align: center;
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      padding: 8px 0 0;
+    }
+
+    /* ── Video section ── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: 20px;
+    }
+
+    .video-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .video-thumb {
+      aspect-ratio: 16 / 9;
+      border-radius: 10px;
+      border: 1px solid var(--border-card);
+      background: rgba(20, 14, 55, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .video-thumb::after {
+      content: "▶";
+      position: absolute;
+      font-size: 2rem;
+      color: rgba(255,255,255,0.7);
+      background: rgba(0,0,0,0.45);
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 4px;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .video-card:hover .video-thumb {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(80, 60, 200, 0.2);
+    }
+
+    .video-card:hover .video-thumb::after {
+      background: rgba(74, 60, 255, 0.6);
+      transform: scale(1.1);
+    }
+
+    .video-card .video-title {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .video-card .video-meta {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ── TikTok / Shorts strip ── */
+    .shorts-strip {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent-purple) transparent;
+    }
+
+    .short-item {
+      flex-shrink: 0;
+      width: 140px;
+      aspect-ratio: 9 / 16;
+      border-radius: 10px;
+      border: 1px solid var(--border-card);
+      background: rgba(20, 14, 55, 0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 0.78rem;
+      text-align: center;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .short-item:hover { transform: translateY(-3px); }
+
+    .short-item .si-icon {
+      font-size: 1.6rem;
+      opacity: 0.35;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Fixed background layers -->
+  <img src="bg_night.webp"            class="bg-img bg-night"  alt="">
+  <img src="castle_illustration.webp" class="bg-img bg-castle" alt="">
+
+  <!-- ===================== HEADER ===================== -->
+  <header>
+    <a href="index.html" class="logo-link">
+      <img src="title_logo.webp" class="logo" alt="WolvesFortress">
+    </a>
+
+    <nav class="nav-full">
+      <a href="world.html">World</a>
+      <a href="gameplay.html">Gameplay</a>
+      <a href="characters.html">Characters</a>
+      <a class="active" href="media.html">Media</a>
+      <a href="devlog.html">Devlog</a>
+      <a href="community.html">Community</a>
+    </nav>
+
+    <details class="nav-collapsed">
+      <summary>
+        <span class="nav-current">Media</span>
+        <span class="nav-arrow">&#9660;</span>
+      </summary>
+      <nav class="nav-dropdown">
+        <a href="world.html">World</a>
+        <a href="gameplay.html">Gameplay</a>
+        <a href="characters.html">Characters</a>
+        <a class="active" href="media.html">Media</a>
+        <a href="devlog.html">Devlog</a>
+        <a href="community.html">Community</a>
+      </nav>
+    </details>
+
+    <a class="small-btn" href="#">Join the Adventure</a>
+  </header>
+
+  <!-- ===================== PAGE HERO ===================== -->
+  <section class="page-hero">
+    <p class="eyebrow">Screenshots, Videos & More</p>
+    <h1>See Luprune.<br>Before you play it.</h1>
+    <p>More gets added whenever something looks good enough to share. Which is often.</p>
+  </section>
+
+  <!-- ===================== CONTENT ===================== -->
+  <section class="media-wrap">
+
+    <!-- Screenshots -->
+    <div class="section-heading">
+      <h2>~ Screenshots ~</h2>
+    </div>
+
+    <div class="gallery-grid">
+      <!-- Wide featured slot -->
+      <div class="gallery-item wide">
+        <span class="gi-icon">🏰</span>
+        <span>[Featured screenshot — wide establishing shot of Petalcove or a dungeon]</span>
+      </div>
+      <!-- Regular slots -->
+      <div class="gallery-item">
+        <span class="gi-icon">🌿</span>
+        <span>[Natura element in action]</span>
+      </div>
+      <div class="gallery-item">
+        <span class="gi-icon">⚡</span>
+        <span>[Electro + Aqua combo effect]</span>
+      </div>
+      <div class="gallery-item">
+        <span class="gi-icon">🌸</span>
+        <span>[Petalcove flower shop exterior]</span>
+      </div>
+      <div class="gallery-item">
+        <span class="gi-icon">🏚️</span>
+        <span>[Dungeon interior, atmospheric lighting]</span>
+      </div>
+      <div class="gallery-item">
+        <span class="gi-icon">🐢</span>
+        <span>[The Tutel boss encounter]</span>
+      </div>
+    </div>
+    <p class="coming-note">More screenshots drop in #showcase on Discord as development continues.</p>
+
+    <!-- Videos -->
+    <div class="section-heading">
+      <h2>~ Videos ~</h2>
+    </div>
+
+    <div class="video-grid">
+      <a class="video-card" href="https://youtube.com/@WolvesFortress" target="_blank" rel="noopener">
+        <div class="video-thumb">🎬</div>
+        <div class="video-title">Luprune — First Look Devlog</div>
+        <div class="video-meta">WolvesFortress · YouTube</div>
+      </a>
+      <a class="video-card" href="https://youtube.com/@WolvesFortress" target="_blank" rel="noopener">
+        <div class="video-thumb">⚗️</div>
+        <div class="video-title">Nine Elements Explained (Sort Of)</div>
+        <div class="video-meta">WolvesFortress · YouTube</div>
+      </a>
+      <a class="video-card" href="https://youtube.com/@WolvesFortress" target="_blank" rel="noopener">
+        <div class="video-thumb">🏰</div>
+        <div class="video-title">Building Petalcove from Scratch</div>
+        <div class="video-meta">WolvesFortress · YouTube</div>
+      </a>
+    </div>
+
+    <!-- TikTok / Shorts -->
+    <div class="section-heading" style="margin-top: 48px;">
+      <h2>~ Clips & Shorts ~</h2>
+    </div>
+
+    <div class="shorts-strip">
+      <div class="short-item">
+        <span class="si-icon">🔥</span>
+        <span>Pyro + Cryo = ??</span>
+      </div>
+      <div class="short-item">
+        <span class="si-icon">🐢</span>
+        <span>First Tutel encounter</span>
+      </div>
+      <div class="short-item">
+        <span class="si-icon">🌿</span>
+        <span>The vines are SENTIENT</span>
+      </div>
+      <div class="short-item">
+        <span class="si-icon">⚡</span>
+        <span>Please don't mix these</span>
+      </div>
+      <div class="short-item">
+        <span class="si-icon">🌸</span>
+        <span>Petalcove at sunrise</span>
+      </div>
+      <div class="short-item">
+        <span class="si-icon">🎵</span>
+        <span>TikTok · @wolvesfortress</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Decorative corners -->
+  <div class="decor decor-top-left"     aria-hidden="true"></div>
+  <div class="decor decor-top-right"    aria-hidden="true"></div>
+  <div class="decor decor-bottom-left"  aria-hidden="true"></div>
+  <div class="decor decor-bottom-right" aria-hidden="true"></div>
+
+</body>
+</html>
